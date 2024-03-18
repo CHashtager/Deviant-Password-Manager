@@ -11,7 +11,7 @@ public class ListProjectsHandler(IReadRepository<Project> projectRepository, ICu
 {
   public async Task<Result<List<ProjectDto>>> Handle(ListProjectsQuery request, CancellationToken cancellationToken)
   {
-    var spec = new ProjectsByUserIdSpec(currentUserService.UserId);
+    var spec = new ProjectsByUserIdSpec(currentUserService.UserId, request.ParentId);
     var projects = await projectRepository.ListAsync(spec, cancellationToken);
     return Result.Success(projects.Select(p => new ProjectDto(p.Id, p.Name)).ToList());
   }

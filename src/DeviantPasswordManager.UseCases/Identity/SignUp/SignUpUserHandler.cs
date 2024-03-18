@@ -22,7 +22,7 @@ public class SignUpUserHandler
     var newDbUser = new User(newUser.Id, request.Email.ToUpper(), request.PassPhrase);
     await userRepository.AddAsync(newDbUser, cancellationToken);
 
-    await projectRepository.AddAsync(new Project("Default", newDbUser.Id));
+    await projectRepository.AddAsync(new Project("Default", newDbUser.Id, null));
     
     return Result.Success();
   }

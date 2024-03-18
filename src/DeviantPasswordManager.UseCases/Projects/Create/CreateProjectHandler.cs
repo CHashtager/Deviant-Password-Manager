@@ -15,7 +15,7 @@ public class CreateProjectHandler(IRepository<Project> repository, ICurrentUserS
 
     var user = await userRepository.FirstOrDefaultAsync(new UserByIdentityIdSpec(currentUserService.UserId),
       cancellationToken);
-    var newProject = new Project(request.Name, user!.Id);
+    var newProject = new Project(request.Name, user!.Id, request.parentId);
     var createdItem = await repository.AddAsync(newProject, cancellationToken);
     return Result.Success();
   }

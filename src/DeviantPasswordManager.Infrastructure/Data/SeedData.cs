@@ -9,8 +9,8 @@ public static class SeedData
 {
   public static readonly User User1 = new (Guid.Empty.ToString(), "test@email.com", "secret");
   
-  public static readonly Project Project1 = new("Ardalis", 1);
-  public static readonly Project Project2 = new("Snowfrog", 1);
+  public static readonly Project Project1 = new("Ardalis", 1, null);
+  public static readonly Project Project2 = new("Snowfrog", 1, null);
 
   public static void Initialize(IServiceProvider serviceProvider)
   {

@@ -7,7 +7,6 @@ public class CreateProjectRequest
 {
   public const string Route = "/Projects/Create/";
 
-  [FromBody]
-  [Required]
-  public string Name { get; set; } = default!;
+  [FromBody] [Required] public string Name { get; set; } = default!;
+  [FromBody] public int? ParentId { get; set; }
 }

@@ -37,7 +37,7 @@ public class CreateProjectHandlerHandle
 
   private Project CreateProject(User user)
   {
-    return new Project(_testName, user.Id);
+    return new Project(_testName, user.Id, null);
   }
 
   [Fact]
@@ -47,7 +47,7 @@ public class CreateProjectHandlerHandle
     
     _repository.AddAsync(Arg.Any<Project>(), Arg.Any<CancellationToken>())
       .Returns(Task.FromResult(CreateProject(_testUser)));
-    var result = await _handler.Handle(new CreateProjectCommand(_testName), CancellationToken.None);
+    var result = await _handler.Handle(new CreateProjectCommand(_testName, null), CancellationToken.None);
 
     result.IsSuccess.Should().BeTrue();
   }

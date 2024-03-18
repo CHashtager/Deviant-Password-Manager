@@ -3,5 +3,5 @@ using Ardalis.SharedKernel;
 
 namespace DeviantPasswordManager.UseCases.Projects.Create;
 
-public record CreateProjectCommand(string Name) : ICommand<Result>;
+public record CreateProjectCommand(string Name, int? parentId) : ICommand<Result>;
 

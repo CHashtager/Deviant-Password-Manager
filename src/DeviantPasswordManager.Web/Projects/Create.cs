@@ -16,7 +16,7 @@ public class Create(IMediator mediator) : Endpoint<CreateProjectRequest>
     CreateProjectRequest request,
     CancellationToken cancellationToken)
   {
-    var command = new CreateProjectCommand(request.Name);
+    var command = new CreateProjectCommand(request.Name, request.ParentId);
 
     var result = await mediator.Send(command);
 

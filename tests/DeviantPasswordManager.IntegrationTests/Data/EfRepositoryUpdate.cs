@@ -14,7 +14,7 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
     var repository = GetRepository();
     var initialName = Guid.NewGuid().ToString();
     var newUser = new User(Guid.NewGuid().ToString(), "test@email.com", "secret");
-    var Project = new Project(initialName, newUser.Id);
+    var Project = new Project(initialName, newUser.Id, null);
 
     await repository.AddAsync(Project);
 

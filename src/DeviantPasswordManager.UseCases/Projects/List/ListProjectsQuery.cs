@@ -3,4 +3,4 @@ using Ardalis.SharedKernel;
 
 namespace DeviantPasswordManager.UseCases.Projects.List;
 
-public record ListProjectsQuery : IQuery<Result<List<ProjectDto>>>;
+public record ListProjectsQuery(int? ParentId) : IQuery<Result<List<ProjectDto>>>;

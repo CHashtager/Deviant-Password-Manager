@@ -15,9 +15,12 @@ public class ProjectConfiguration : IEntityTypeConfiguration<Project>
     builder.Property(p => p.AdminId)
       .IsRequired();
 
+    builder.Property(p => p.ParentId)
+      .IsRequired(false);
+
     builder
       .HasOne(p => p.Admin)
-      .WithOne()
+      .WithMany()
       .OnDelete(DeleteBehavior.Cascade);
   }
 }

@@ -21,7 +21,7 @@ public class PasswordConstructor
   private Password CreatePassword()
   {
     var user = new User(_testUserId, _testEmail, _testPassPhrase);
-    var project = new Project(_testProjectName, user.Id);
+    var project = new Project(_testProjectName, user.Id, null);
 
     return new Password(_testName, _testUsername, _testEncryptedPassword, _testUrl, project.Id, user.Id);
   }

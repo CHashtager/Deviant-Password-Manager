@@ -15,7 +15,7 @@ public class ProjectConstructor
   private Project CreateProject()
   {
     var user = new User(_testUserId, _testEmail, _testPassPhrase);
-    return new Project(_testName, user.Id);
+    return new Project(_testName, user.Id, null);
   }
 
   [Fact]

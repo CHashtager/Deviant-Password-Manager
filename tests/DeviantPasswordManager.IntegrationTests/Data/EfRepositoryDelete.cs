@@ -13,7 +13,7 @@ public class EfRepositoryDelete : BaseEfRepoTestFixture
     var testProjectName = "testProject";
     var repository = GetRepository();
     var newUser = new User(Guid.NewGuid().ToString(), "test@email.com", "secret");
-    var project = new Project(testProjectName, newUser.Id);
+    var project = new Project(testProjectName, newUser.Id, null);
     await repository.AddAsync(project);
 
     // delete the item

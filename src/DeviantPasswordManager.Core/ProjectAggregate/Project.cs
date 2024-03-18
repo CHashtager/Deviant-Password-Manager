@@ -5,14 +5,19 @@ using DeviantPasswordManager.Core.ProjectAggregate.Events;
 
 namespace DeviantPasswordManager.Core.ProjectAggregate;
 
-public class Project(string name, int adminId) : EntityBase, IAggregateRoot
+public class Project(string name, int adminId, int? parentId) : EntityBase, IAggregateRoot
 {
   public string Name { get; private set; } = name;
 
   public User Admin { get; set; } = default!;
   public int AdminId { get; set; } = adminId;
 
+  public Project Parent { get; set; } = default!;
+  public int? ParentId { get; set; } = parentId;
+
   public ICollection<User> Members { get; set; } = new List<User>();
+
+  public ICollection<Project> Children { get; set; } = new List<Project>();
 
   public void UpdateName(string newName)
   {
