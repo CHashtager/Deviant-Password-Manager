@@ -1,8 +1,6 @@
-using DeviantPasswordManager.UseCases.Projects.Create;
 using DeviantPasswordManager.UseCases.Projects.List;
 using FastEndpoints;
 using MediatR;
-using Org.BouncyCastle.Ocsp;
 
 namespace DeviantPasswordManager.Web.Projects;
 
@@ -22,7 +20,7 @@ public class List(IMediator mediator) : Endpoint<ListProjectsRequest, ListProjec
     {
       Response = new ListProjectsResponse
       {
-        Projects = result.Value.Select(p => new ProjectRecord(p.Id, p.Name)).ToList()
+        Projects = result.Value.Select(p => new ProjectRecord(p.Id, p.Name, p.HasChildren)).ToList()
       };
     }  }
 }

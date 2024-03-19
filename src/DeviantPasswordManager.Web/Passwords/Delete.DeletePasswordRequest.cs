@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FastEndpoints;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Build.Framework;
 
 namespace DeviantPasswordManager.Web.Passwords;
@@ -7,11 +8,11 @@ public class DeletePasswordRequest
 {
   public const string Route = "/Passwords/Delete/";
 
-  [FromQuery]
+  [QueryParam]
   [Required] 
   public int PasswordId { get; set; } = default!;
   
-  [FromQuery]
+  [QueryParam]
   [Required]
   public int ProjectId { get; set; } = default!;
 }

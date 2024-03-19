@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
+using FastEndpoints;
 
 namespace DeviantPasswordManager.Web.Projects;
 
@@ -10,7 +10,7 @@ public record DeleteProjectRequest
 
   public const string Route = "/Projects/Delete/";
   
-  [FromQuery]
+  [QueryParam]
   [Required]
   public int ProjectId { get; set; }
 }

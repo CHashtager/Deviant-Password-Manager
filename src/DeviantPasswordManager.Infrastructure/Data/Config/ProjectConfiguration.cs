@@ -22,5 +22,11 @@ public class ProjectConfiguration : IEntityTypeConfiguration<Project>
       .HasOne(p => p.Admin)
       .WithMany()
       .OnDelete(DeleteBehavior.Cascade);
+    
+    builder
+      .HasOne(x => x.Parent)
+      .WithMany(x => x.Children)
+      .HasForeignKey(d => d.ParentId)
+      .HasConstraintName("FK_Projects_Projects");
   }
 }

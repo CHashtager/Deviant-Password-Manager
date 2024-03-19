@@ -1,3 +1,3 @@
 ﻿namespace DeviantPasswordManager.UseCases.Projects;
 
-public record ProjectDto(int Id, string Name);
+public record ProjectDto(int Id, string Name, bool HasChildren);

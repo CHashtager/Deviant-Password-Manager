@@ -13,6 +13,6 @@ public class ListProjectsHandler(IReadRepository<Project> projectRepository, ICu
   {
     var spec = new ProjectsByUserIdSpec(currentUserService.UserId, request.ParentId);
     var projects = await projectRepository.ListAsync(spec, cancellationToken);
-    return Result.Success(projects.Select(p => new ProjectDto(p.Id, p.Name)).ToList());
+    return Result.Success(projects.Select(p => new ProjectDto(p.Id, p.Name, p.Children.Count > 0)).ToList());
   }
 }
