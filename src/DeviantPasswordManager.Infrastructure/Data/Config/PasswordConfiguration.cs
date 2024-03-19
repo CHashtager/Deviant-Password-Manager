@@ -30,12 +30,12 @@ public class PasswordConfiguration : IEntityTypeConfiguration<Password>
 
     builder
       .HasOne(p => p.User)
-      .WithOne()
+      .WithMany()
       .OnDelete(DeleteBehavior.NoAction);
 
     builder
       .HasOne(p => p.Project)
-      .WithOne()
-      .OnDelete(DeleteBehavior.Cascade);
+      .WithMany()
+      .OnDelete(DeleteBehavior.NoAction);
   }
 }
