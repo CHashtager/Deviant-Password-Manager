@@ -9,7 +9,7 @@ public class Update(IMediator mediator) : Endpoint<UpdatePasswordRequest>
 {
   public override void Configure()
   {
-    Post(UpdatePasswordRequest.Route);
+    Put(UpdatePasswordRequest.Route);
   }
 
   public override async Task HandleAsync(UpdatePasswordRequest request, CancellationToken cancellationToken)

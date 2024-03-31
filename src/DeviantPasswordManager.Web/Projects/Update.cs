@@ -9,7 +9,7 @@ public class Update(IMediator mediator) : Endpoint<UpdateProjectRequest>
 {
   public override void Configure()
   {
-    Post(UpdateProjectRequest.Route);
+    Put(UpdateProjectRequest.Route);
     // AllowAnonymous();
   }
 
