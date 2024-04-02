@@ -3,4 +3,4 @@ using Ardalis.SharedKernel;
 
 namespace DeviantPasswordManager.UseCases.Projects.AddMember;
 
-public record AddProjectMemberCommand(int ProjectId, string Email) : ICommand<Result>;
+public record AddProjectMemberCommand(int ProjectId, string Email) : ICommand<Result<ProjectWithMembersDto>>;

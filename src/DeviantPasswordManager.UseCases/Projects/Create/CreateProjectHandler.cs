@@ -8,15 +8,15 @@ using DeviantPasswordManager.Core.ProjectAggregate;
 
 namespace DeviantPasswordManager.UseCases.Projects.Create;
 
-public class CreateProjectHandler(IRepository<Project> repository, ICurrentUserService currentUserService, IReadRepository<User> userRepository): ICommandHandler<CreateProjectCommand, Result> 
+public class CreateProjectHandler(IRepository<Project> repository, ICurrentUserService currentUserService, IReadRepository<User> userRepository): ICommandHandler<CreateProjectCommand, Result<ProjectDto>> 
 {
-  public async Task<Result> Handle(CreateProjectCommand request, CancellationToken cancellationToken)
+  public async Task<Result<ProjectDto>> Handle(CreateProjectCommand request, CancellationToken cancellationToken)
   {
 
     var user = await userRepository.FirstOrDefaultAsync(new UserByIdentityIdSpec(currentUserService.UserId),
       cancellationToken);
     var newProject = new Project(request.Name, user!.Id, request.parentId);
     var createdItem = await repository.AddAsync(newProject, cancellationToken);
-    return Result.Success();
+    return Result.Success(new ProjectDto(createdItem.Id, createdItem.Name, false));
   }
 }

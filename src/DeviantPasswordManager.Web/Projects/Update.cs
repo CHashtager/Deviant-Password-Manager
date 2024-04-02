@@ -5,12 +5,11 @@ using MediatR;
 
 namespace DeviantPasswordManager.Web.Projects;
 
-public class Update(IMediator mediator) : Endpoint<UpdateProjectRequest>
+public class Update(IMediator mediator) : Endpoint<UpdateProjectRequest, UpdateProjectResponse>
 {
   public override void Configure()
   {
     Put(UpdateProjectRequest.Route);
-    // AllowAnonymous();
   }
 
   public override async Task HandleAsync(
@@ -23,13 +22,13 @@ public class Update(IMediator mediator) : Endpoint<UpdateProjectRequest>
 
     if (result.Status == ResultStatus.NotFound)
     {
-      await SendAsync(result.Errors.FirstOrDefault()!, 404, cancellationToken);
+      await SendNotFoundAsync();
       return;
     }
 
     if (result.IsSuccess)
     {
-      await SendNoContentAsync(cancellationToken);
+      Response = new UpdateProjectResponse(result.Value.Id, result.Value.Name);
     }
   }
 }

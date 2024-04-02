@@ -4,12 +4,11 @@ using MediatR;
 
 namespace DeviantPasswordManager.Web.Projects;
 
-public class Create(IMediator mediator) : Endpoint<CreateProjectRequest>
+public class Create(IMediator mediator) : Endpoint<CreateProjectRequest, CreateProjectResponse>
 {
   public override void Configure()
   {
     Post(CreateProjectRequest.Route);
-    // AllowAnonymous();
   }
 
   public override async Task HandleAsync(
@@ -22,7 +21,7 @@ public class Create(IMediator mediator) : Endpoint<CreateProjectRequest>
 
     if (result.IsSuccess)
     {
-      await SendNoContentAsync(cancellationToken);
+      await SendCreatedAtAsync<GetById>(new {ProjectId = result.Value.Id}, new CreateProjectResponse(result.Value.Id, result.Value.Name));
     }
   }
 }

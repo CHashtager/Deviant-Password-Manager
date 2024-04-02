@@ -8,9 +8,9 @@ using DeviantPasswordManager.Core.ProjectAggregate.Specifications;
 
 namespace DeviantPasswordManager.UseCases.Projects.AddMember;
 
-public class AddProjectMemberHandler(IRepository<Project> projectRepository, IReadRepository<User> userRepository, ICurrentUserService currentUserService) : ICommandHandler<AddProjectMemberCommand, Result>
+public class AddProjectMemberHandler(IRepository<Project> projectRepository, IReadRepository<User> userRepository, ICurrentUserService currentUserService) : ICommandHandler<AddProjectMemberCommand, Result<ProjectWithMembersDto>>
 {
-  public async Task<Result> Handle(AddProjectMemberCommand request, CancellationToken cancellationToken)
+  public async Task<Result<ProjectWithMembersDto>> Handle(AddProjectMemberCommand request, CancellationToken cancellationToken)
   {
     var projectSpec = new ProjectByIdSpec(request.ProjectId, currentUserService.UserId);
     var project = await projectRepository.FirstOrDefaultAsync(projectSpec, cancellationToken);
@@ -25,6 +25,8 @@ public class AddProjectMemberHandler(IRepository<Project> projectRepository, IRe
     project.AddUser(member);
 
     await projectRepository.UpdateAsync(project, cancellationToken);
-    return Result.Success();
+
+    var members = project.Members.Select(user => new ProjectMemberDto(user.Email)).ToList();
+    return Result.Success(new ProjectWithMembersDto(project.Id, project.Name, members));
   }
 }

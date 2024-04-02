@@ -9,7 +9,7 @@ public class RemoveMember(IMediator mediator) : Endpoint<RemoveProjectMemberRequ
 {
   public override void Configure()
   {
-    Post(RemoveProjectMemberRequest.Route);
+    Delete(RemoveProjectMemberRequest.Route);
   }
 
   public override async Task HandleAsync(

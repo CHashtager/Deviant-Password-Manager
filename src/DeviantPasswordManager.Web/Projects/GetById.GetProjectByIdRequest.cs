@@ -5,12 +5,12 @@ namespace DeviantPasswordManager.Web.Projects;
 
 public class GetProjectByIdRequest
 {
-  // public const string Route = "/Projects/GetById/{ProjectId:int}";
-  // public static string BuildRoute(int projectId) => Route.Replace("{ProjectId:int}", projectId.ToString());
+  public const string Route = "/Projects/{ProjectId:int}/";
+  public static string BuildRoute(int projectId) => Route.Replace("{ProjectId:int}", projectId.ToString());
 
-  public const string Route = "/Projects/GetById/";
+  // public const string Route = "/Projects/GetById/";
 
-  [QueryParam]
-  [Required]
+  // [QueryParam]
+  // [Required]
   public int ProjectId { get; set; }
 }

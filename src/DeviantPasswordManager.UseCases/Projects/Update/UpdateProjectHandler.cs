@@ -11,9 +11,9 @@ namespace DeviantPasswordManager.UseCases.Projects.Update;
 
 public class UpdateProjectHandler
   (IRepository<Project> repository, ICurrentUserService currentUserService) : ICommandHandler<UpdateProjectCommand,
-    Result>
+    Result<ProjectDto>>
 {
-  public async Task<Result> Handle(UpdateProjectCommand request, CancellationToken cancellationToken)
+  public async Task<Result<ProjectDto>> Handle(UpdateProjectCommand request, CancellationToken cancellationToken)
   {
     var projectSpec = new ProjectByIdSpec(request.Id, currentUserService.UserId);
     var project = await repository.FirstOrDefaultAsync(projectSpec, cancellationToken);
@@ -22,6 +22,6 @@ public class UpdateProjectHandler
     project.UpdateName(request.Name);
     await repository.UpdateAsync(project, cancellationToken);
 
-    return Result.Success();
+    return Result.Success(new ProjectDto(project.Id, project.Name, false));
   }
 }

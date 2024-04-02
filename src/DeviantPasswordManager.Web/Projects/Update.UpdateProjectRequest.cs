@@ -5,10 +5,10 @@ namespace DeviantPasswordManager.Web.Projects;
 
 public class UpdateProjectRequest
 {
-  public const string Route = "/Projects/Update/";
+  public const string Route = "/Projects/{ProjectId:int}/";
+  public static string BuildRoute(int projectId) => Route.Replace("{ProjectId:int}", projectId.ToString());
 
-  [FromBody]
-  [Required]
+
   public int ProjectId { get; set; } = default!;
   
   [FromBody]

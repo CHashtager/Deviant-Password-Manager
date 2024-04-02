@@ -34,7 +34,8 @@ public class AddMember(IMediator mediator) : Endpoint<AddProjectMemberRequest>
 
     if (result.IsSuccess)
     {
-      await SendNoContentAsync(cancellationToken);
+      Response = new GetProjectByIdResponse(result.Value.Id, result.Value.Name,
+        result.Value.Members.Select(member => new ProjectMemberRecord(member.Email)).ToList());
     }
   }
 }
