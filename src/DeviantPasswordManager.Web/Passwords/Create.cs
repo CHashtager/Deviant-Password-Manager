@@ -5,7 +5,7 @@ using MediatR;
 
 namespace DeviantPasswordManager.Web.Passwords;
 
-public class Create(IMediator mediator) : Endpoint<CreatePasswordRequest>
+public class Create(IMediator mediator) : Endpoint<CreatePasswordRequest, CreatePasswordResponse>
 {
   public override void Configure()
   {
@@ -21,13 +21,13 @@ public class Create(IMediator mediator) : Endpoint<CreatePasswordRequest>
 
     if (result.Status == ResultStatus.NotFound)
     {
-      await SendAsync(result.Errors.FirstOrDefault()!, 404, cancellationToken);
+      await SendNotFoundAsync();
       return;
     }
 
     if (result.IsSuccess)
     {
-      await SendNoContentAsync(cancellationToken);
+      await SendCreatedAtAsync<GetById>(new {PasswordId = result.Value.Id}, new CreatePasswordResponse(result.Value.Id, result.Value.Name, result.Value.Username, result.Value.Password, result.Value.Url));
     }
   }
 }

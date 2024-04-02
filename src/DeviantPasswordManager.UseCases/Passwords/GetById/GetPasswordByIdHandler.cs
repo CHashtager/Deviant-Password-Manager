@@ -16,7 +16,7 @@ public class GetPasswordByIdHandler(
 {
   public async Task<Result<PasswordDto>> Handle(GetPasswordByIdQuery request, CancellationToken cancellationToken)
   {
-    var passwordSpec = new PasswordByIdProjectSpec(request.PasswordId, request.ProjectId, currentUserService.UserId);
+    var passwordSpec = new PasswordByIdProjectSpec(request.PasswordId, currentUserService.UserId);
     var password = await passwordRepository.FirstOrDefaultAsync(passwordSpec, cancellationToken);
     if (password is null) return Result.NotFound("Password not found");
 

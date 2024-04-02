@@ -5,7 +5,7 @@ using MediatR;
 
 namespace DeviantPasswordManager.Web.Passwords;
 
-public class Update(IMediator mediator) : Endpoint<UpdatePasswordRequest>
+public class Update(IMediator mediator) : Endpoint<UpdatePasswordRequest, UpdatePasswordResponse>
 {
   public override void Configure()
   {
@@ -15,19 +15,20 @@ public class Update(IMediator mediator) : Endpoint<UpdatePasswordRequest>
   public override async Task HandleAsync(UpdatePasswordRequest request, CancellationToken cancellationToken)
   {
     var command =
-      new UpdatePasswordCommand(request.PasswordId, request.ProjectId,request.Password,request.Name, request.Username, request.Url);
+      new UpdatePasswordCommand(request.PasswordId,request.Password,request.Name, request.Username, request.Url);
 
     var result = await mediator.Send(command);
 
     if (result.Status == ResultStatus.NotFound)
     {
-      await SendAsync(result.Errors.FirstOrDefault()!, 404, cancellationToken);
+      await SendNotFoundAsync();
       return;
     }
 
     if (result.IsSuccess)
     {
-      await SendNoContentAsync(cancellationToken);
+      Response = new UpdatePasswordResponse(result.Value.Id, result.Value.Name, result.Value.Username,
+        result.Value.Password, result.Value.Url);
     }
   }
 }

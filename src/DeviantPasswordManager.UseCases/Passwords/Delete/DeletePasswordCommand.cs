@@ -3,4 +3,4 @@ using Ardalis.SharedKernel;
 
 namespace DeviantPasswordManager.UseCases.Passwords.Delete;
 
-public record DeletePasswordCommand(int PasswordId, int ProjectId) : ICommand<Result>;
+public record DeletePasswordCommand(int PasswordId) : ICommand<Result>;

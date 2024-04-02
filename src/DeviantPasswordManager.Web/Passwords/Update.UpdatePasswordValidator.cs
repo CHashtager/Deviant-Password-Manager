@@ -11,6 +11,5 @@ public class UpdatePasswordValidator : Validator<UpdatePasswordRequest>
     RuleFor(a => a.Username).NotNull().NotEmpty().MaximumLength(100);
     RuleFor(a => a.Password).NotNull().NotEmpty().MaximumLength(100);
     RuleFor(a => a.Url).MaximumLength(100);
-    RuleFor(a => a.ProjectId).GreaterThan(0);
   }
 }

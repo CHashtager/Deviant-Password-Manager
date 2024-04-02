@@ -15,9 +15,9 @@ public class CreatePasswordHandler(
   IReadRepository<User> userRepository,
   ICurrentUserService currentUserService,
   IPasswordService passwordService
-  ) : ICommandHandler<CreatePasswordCommand, Result>
+  ) : ICommandHandler<CreatePasswordCommand, Result<PasswordDto>>
 {
-  public async Task<Result> Handle(CreatePasswordCommand request, CancellationToken cancellationToken)
+  public async Task<Result<PasswordDto>> Handle(CreatePasswordCommand request, CancellationToken cancellationToken)
   {
     var projectSpec = new ProjectByIdSpec(request.ProjectId, currentUserService.UserId);
     var project = await projectRepository.FirstOrDefaultAsync(projectSpec, cancellationToken);
@@ -30,8 +30,8 @@ public class CreatePasswordHandler(
     var encryptedPassword = passwordService.Encrypt(request.Password, user.PassPhrase);
     var newPassword = new Password(request.Name, request.Username, encryptedPassword, request.Url, project.Id, user.Id);
 
-    await passwordRepository.AddAsync(newPassword, cancellationToken);
+    var createdPassword = await passwordRepository.AddAsync(newPassword, cancellationToken);
 
-    return Result.Success();
+    return Result.Success(new PasswordDto(createdPassword.Id, createdPassword.Name, createdPassword.Username, passwordService.Decrypt(createdPassword.EncryptedPassword, createdPassword.User.PassPhrase), createdPassword.Url));
   }
 }

@@ -16,7 +16,7 @@ public class GetById(IMediator mediator)
   public override async Task HandleAsync(GetPasswordByIdRequest request,
     CancellationToken cancellationToken)
   {
-    var command = new GetPasswordByIdQuery(request.PasswordId, request.ProjectId);
+    var command = new GetPasswordByIdQuery(request.PasswordId);
 
     var result = await mediator.Send(command);
 

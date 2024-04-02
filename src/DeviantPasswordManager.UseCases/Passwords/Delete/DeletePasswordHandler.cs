@@ -18,7 +18,7 @@ public class DeletePasswordHandler(
 {
   public async Task<Result> Handle(DeletePasswordCommand request, CancellationToken cancellationToken)
   {
-    var passwordSpec = new PasswordAuthedSpec(request.PasswordId, request.ProjectId, currentUserService.UserId);
+    var passwordSpec = new PasswordOwnerSpec(request.PasswordId, currentUserService.UserId);
     var password = await passwordRepository.FirstOrDefaultAsync(passwordSpec, cancellationToken);
     if (password is null) return Result.NotFound("Password not found.");
     
