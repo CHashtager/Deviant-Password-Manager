@@ -9,7 +9,5 @@ public class GetPasswordByIdValidator : Validator<GetPasswordByIdRequest>
   {
     RuleFor(x => x.PasswordId)
       .GreaterThan(0);
-    RuleFor(x => x.ProjectId)
-      .GreaterThan(0);
   }
 }

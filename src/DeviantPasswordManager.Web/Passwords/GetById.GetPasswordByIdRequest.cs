@@ -5,14 +5,9 @@ namespace DeviantPasswordManager.Web.Passwords;
 
 public class GetPasswordByIdRequest
 {
-  public const string Route = "/Passwords/GetById/";
+  public const string Route = "/Passwords/{PasswordId:int}/";
+  public static string BuildRoute(int passwordId) => Route.Replace("{PasswordId:int}", passwordId.ToString());
 
-  [FromQuery]
-  [Required]
   public int PasswordId { get; set; }
-  
-  [FromQuery]
-  [Required]
-  public int ProjectId { get; set; }
 
 }

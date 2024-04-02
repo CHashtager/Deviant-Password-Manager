@@ -5,7 +5,7 @@ namespace DeviantPasswordManager.Web.Passwords;
 
 public class CreatePasswordRequest
 {
-  public const string Route = "/Passwords/Create/";
+  public const string Route = "/Passwords/";
 
   [FromBody] [Required] public string Name { get; set; } = default!;
   [FromBody] [Required] public string Username { get; set; } = default!;

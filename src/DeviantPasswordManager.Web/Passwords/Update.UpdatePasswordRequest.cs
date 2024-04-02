@@ -5,12 +5,12 @@ namespace DeviantPasswordManager.Web.Passwords;
 
 public class UpdatePasswordRequest
 {
-  public const string Route = "/Passwords/Update/";
+  public const string Route = "/Passwords/{PasswordId:int}/";
+  public static string BuildRoute(int passwordId) => Route.Replace("{PasswordId:int}", passwordId.ToString());
 
-  [FromBody] [Required] public int PasswordId { get; set; } = default!;
+  public int PasswordId { get; set; }
   [FromBody] [Required] public string Name { get; set; } = default!;
   [FromBody] [Required] public string Username { get; set; } = default!;
   [FromBody] [Required] public string Password { get; set; } = default!;
   [FromBody] public string Url { get; set; } = default!;
-  [FromBody] [Required] public int ProjectId { get; set; } = default!;
 }

@@ -6,13 +6,9 @@ namespace DeviantPasswordManager.Web.Passwords;
 
 public class DeletePasswordRequest
 {
-  public const string Route = "/Passwords/Delete/";
+  public const string Route = "/Passwords/{PasswordId:int}/";
+  public static string BuildRoute(int passwordId) => Route.Replace("{PasswordId:int}", passwordId.ToString());
 
-  [QueryParam]
-  [Required] 
-  public int PasswordId { get; set; } = default!;
+  public int PasswordId { get; set; }
   
-  [QueryParam]
-  [Required]
-  public int ProjectId { get; set; } = default!;
 }
