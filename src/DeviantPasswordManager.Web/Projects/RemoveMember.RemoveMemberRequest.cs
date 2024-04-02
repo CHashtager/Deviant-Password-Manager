@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using FastEndpoints;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeviantPasswordManager.Web.Projects;
@@ -10,7 +11,7 @@ public class RemoveProjectMemberRequest
   
   public int ProjectId { get; set; }
   
-  [FromBody]
+  [QueryParam]
   [Required]
   [EmailAddress]
   public string Email { get; set; } = default!;

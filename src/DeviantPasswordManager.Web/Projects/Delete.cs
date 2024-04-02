@@ -11,6 +11,13 @@ public class Delete(IMediator mediator)
   public override void Configure()
   {
     Delete(DeleteProjectRequest.Route);
+    Description(b => 
+        b.Accepts<DeleteProjectRequest>().
+          Produces(204).
+          Produces(401).
+          Produces(403).
+          Produces(404),
+      clearDefaults: true);
   }
 
   public override async Task HandleAsync(

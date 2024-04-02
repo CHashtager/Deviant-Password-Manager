@@ -5,7 +5,7 @@ using MediatR;
 
 namespace DeviantPasswordManager.Web.Projects;
 
-public class AddMember(IMediator mediator) : Endpoint<AddProjectMemberRequest>
+public class AddMember(IMediator mediator) : Endpoint<AddProjectMemberRequest, AddProjectMemberResponse>
 {
   public override void Configure()
   {
@@ -23,18 +23,16 @@ public class AddMember(IMediator mediator) : Endpoint<AddProjectMemberRequest>
     switch (result.Status)
     {
       case ResultStatus.NotFound:
-        // await SendNotFoundAsync(cancellationToken);
-        await SendAsync(result.Errors.FirstOrDefault()!, 404, cancellationToken);
+        await SendNotFoundAsync(cancellationToken);
         return;
       case ResultStatus.Conflict:
-        // await SendForbiddenAsync(cancellationToken);
-        await SendAsync(result.Errors.FirstOrDefault()!, 409, cancellationToken);
+        await SendForbiddenAsync(cancellationToken);
         return;
     }
 
     if (result.IsSuccess)
     {
-      Response = new GetProjectByIdResponse(result.Value.Id, result.Value.Name,
+      Response = new AddProjectMemberResponse(result.Value.Id, result.Value.Name,
         result.Value.Members.Select(member => new ProjectMemberRecord(member.Email)).ToList());
     }
   }
