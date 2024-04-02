@@ -22,7 +22,7 @@ public class SignUp(IMediator mediator) : Endpoint<SignUpUserRequest>
 
     if (result.IsSuccess)
     {
-      await SendNoContentAsync(cancellationToken);
+      await SendCreatedAtAsync<Login>(null, null);
     }
   }
 }
